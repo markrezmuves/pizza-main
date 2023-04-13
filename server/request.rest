@@ -41,13 +41,13 @@ post http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "firstName": "József",
-    "lastName": "Nagy",
+    "firstName": "Márk",
+    "lastName": "Rézműves",
     "gender": "férfi",
-    "userName": "jozsef",
-    "email": "natgy.jozsef@gmail.com",
+    "userName": "mark",
+    "email": "rezmuves.mark@gmail.com",
     "password": "123",
-    "number": 33333333
+    "number": 1
 }
 
 ### User módosítása

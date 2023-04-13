@@ -732,6 +732,31 @@ app.put("/trips/:id", (req, res) => {
 });
 //#endregion trips
 
+
+//#region pizza
+app.get("/pizza", (req, res) => {
+  let sql = `SELECT * FROM pizza`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "pizza sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
+
+
+//#endregion pizza
+
 function mySanitizeHtml(data) {
   return sanitizeHtml(data, {
     allowedTags: [],

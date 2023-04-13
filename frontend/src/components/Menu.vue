@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/"
         @click="onClickMenu(1)"
-      >Taxi</router-link>
+      >Pizzéria</router-link>
       <button
         class="navbar-toggler"
         type="button"

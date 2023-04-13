@@ -11,7 +11,7 @@
              Méret: {{ pizza.size }} cm <br>
              Ár: {{ pizza.price }} Ft
             </p>
-            <a href="#" class="btn btn-primary">Megrendelés</a>
+            <a href="#" class="btn btn-dark" >Megrendelés</a>
           </div>
         </div>
       </div>

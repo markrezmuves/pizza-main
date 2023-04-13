@@ -40,12 +40,12 @@
               :class="{active: menuState === 4}"
               @click="onClickMenu(4)"
             >
-              Taxiállomás
+             Pizzák
             </a>
             <ul class="dropdown-menu">
               <li>
-                <router-link class="dropdown-item" to="/taxiFuvarjai"
-                  >Taxi és fuvarjai</router-link
+                <router-link class="dropdown-item" to="/Megrendelok"
+                  >Megrendelők</router-link
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>

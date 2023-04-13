@@ -1,8 +1,8 @@
 
 <template>
   <div>
-    <h1>Taxi fuvarjai</h1>
-    <div v-for="(car, index) in carsWithTrips" :key="`car${index}`">
+    <h1>Megrendelők</h1>
+    <div v-for="(car, index) in carsWithTrips" :key="`pizza${index}`">
       <h2>
         {{ car.name }} ({{ car.licenceNumber }}) {{ car.licenceNumber }} Ft/óra
       </h2>

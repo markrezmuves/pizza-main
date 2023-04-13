@@ -10,7 +10,7 @@ const router = createRouter({
       component: () => import("../views/HomeView.vue"),
       meta: {
         requiresAuth: false,
-        title: "Home / Taxi",
+        title: "Home / Pizza",
       },
     },
     {
@@ -26,12 +26,12 @@ const router = createRouter({
       },
     },
     {
-      path: "/taxiFuvarjai",
-      name: "taxiFuvarjai",
-      component: () => import("../views/TaxiFuvarjaiView.vue"),
+      path: "/megrendelok",
+      name: "megrendelok",
+      component: () => import("../views/Megrendelok.vue"),
       meta: {
         requiresAuth: false,
-        title: "Taxi fuvarjai / Taxi",
+        title: "Megrendelok / Pizza",
       },
     },
     {

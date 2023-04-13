@@ -1,25 +1,25 @@
 
 <template>
   <div>
-    <h1>Fuvar bevitel</h1>
+    <h1>Új pizza hozzáadása</h1>
     <hr />
     <div class="row p-3">
       <!-- taxi táblázat -->
       <div class="col-md-5">
-        <h2>Aktív taxik</h2>
+        <h2>Kötelező pizza adatok</h2>
         <!--#region táblázat -->
         <table class="table table-bordered table-hover w-auto">
           <thead>
             <tr>
-              <th>Autó márka</th>
-              <th>Rendszám</th>
-              <th>Vezető</th>
+              <th>Pizza neve</th>
+              <th>Pizza mérete</th>
+              <th>Pizza ára</th>
             </tr>
           </thead>
           <tbody>
             <tr
               v-for="(car, index) in cars"
-              :key="`car${index}`"
+              :key="`pizza${index}`"
               :class="currentRowBackground(car.id)"
               @click="onClikRow(car.id)"
             >

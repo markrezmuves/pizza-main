@@ -44,9 +44,9 @@ const router = createRouter({
       },
     },
     {
-      path: "/fuvarBevitel",
-      name: "fuvarBevitel",
-      component: () => import("../views/FuvarBevitel.vue"),
+      path: "/UjPizza",
+      name: "UjPizza",
+      component: () => import("../views/UjPizza.vue"),
       meta: {
         requiresAuth: true,
         title: "Fuvar bevitel / Taxi",

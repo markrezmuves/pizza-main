@@ -17,14 +17,14 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" :class="{active: menuState === 4}" @click="onClickMenu(4)">Pizzák</a>
             <ul class="dropdown-menu">
               <li>
-                <router-link class="dropdown-item" to="/Megrendelok">Megrendelők</router-link>
+                <router-link class="dropdown-item" to="/Megrendelok">Ide se tudom még</router-link>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <router-link class="dropdown-item" to="/taxiKezeles" :class="{ disabled: !storeLogin.loginSuccess }">Taxik kezelése</router-link>
+                <router-link class="dropdown-item" to="/PizzakKezeles" :class="{ disabled: !storeLogin.loginSuccess }">Pizzák kezelése</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item" to="/UjPizza">Új pizza hozzáadása</router-link>
+                <router-link class="dropdown-item" to="/UjPizza">Egyelőre nemtudom ide mit irjak</router-link>
               </li>
             </ul>
           </li>

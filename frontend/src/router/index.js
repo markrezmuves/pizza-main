@@ -35,12 +35,12 @@ const router = createRouter({
       },
     },
     {
-      path: "/taxiKezeles",
-      name: "taxiKezeles",
-      component: () => import("../views/TaxiKezelesView.vue"),
+      path: "/PizzakKezeles",
+      name: "PizzakKezeles",
+      component: () => import("../views/PizzakKezeles.vue"),
       meta: {
         requiresAuth: true,
-        title: "Taxi Kezelés / Taxi",
+        title: "Pizzak kezelés / Pizza",
       },
     },
     {

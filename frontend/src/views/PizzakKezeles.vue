@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <h1>Taxi kezelés</h1>
+    <h1>Pizzák kezelése</h1>
 
     <!--#region táblázat -->
     <table class="table table-bordered table-hover w-auto">
@@ -14,14 +14,12 @@
               class="btn btn-outline-success btn-sm"
               @click="onClickNew()"
             >
-              Új autó
+              Új pizza
             </button>
           </th>
-          <th>Autó márka</th>
-          <th>Rendszám</th>
-          <th>Tarifa (Ft/óra)</th>
-          <th>Vezető</th>
-          <th>Forgalmon kívül</th>
+          <th>Pizza fajtája</th>
+          <th>Pizza mérete</th>
+          <th>Pizza ára</th>
         </tr>
       </thead>
       <tbody>
@@ -50,10 +48,9 @@
               <i class="bi bi-pencil-fill"></i>
             </button>
           </td>
-          <td>{{ car.name }}</td>
-          <td>{{ car.licenceNumber }}</td>
-          <td>{{ car.hourlyRate }}</td>
-          <td>{{ car.driverName }}</td>
+          <td>{{ pizza.name }}</td>
+          <td>{{ pizza.size }}</td>
+          <td>{{ pizza.prices }}</td>
           <td>
             <input
               class="form-check-input"
@@ -97,7 +94,7 @@
             <form class="row g-3 needs-validation" novalidate>
               <!-- Autó név -->
               <div class="col-md-12">
-                <label for="name" class="form-label">Autó név</label>
+                <label for="name" class="form-label">Pizza neve</label>
                 <input
                   type="text"
                   class="form-control"
@@ -105,12 +102,12 @@
                   required
                   v-model="editableCar.name"
                 />
-                <div class="invalid-feedback">A név kitöltése kötelező</div>
+                <div class="invalid-feedback">A pizza név kitöltése kötelező</div>
               </div>
 
               <!-- Rendszám -->
               <div class="col-md-6">
-                <label for="licenceNumber" class="form-label">Rendszám</label>
+                <label for="licenceNumber" class="form-label">A pizza mérete</label>
                 <input
                   type="text"
                   class="form-control"
@@ -126,7 +123,7 @@
               <!-- Rendszám -->
               <div class="col-md-6">
                 <label for="hourlyRate" class="form-label"
-                  >Tarifa (Ft/óra)</label
+                  >Ára</label
                 >
                 <input
                   type="number"
@@ -139,30 +136,9 @@
               </div>
 
               <!-- out of traffic -->
-              <div class="col-md-6">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="outOfTraffic"
-                  v-model="editableCar.outOfTraffic"
-                />
-                <label class="form-check-label ms-2" for="flexCheckDefault">
-                  Forgalmon kívül
-                </label>
-              </div>
+             
 
-              <div class="col-md-6">
-                <select class="form-select" aria-label="Default select example"
-                  v-model="editableCar.driverId"
-                >
-                <option :value="null">Nincs sofőr</option>
-                <option v-for="(driver, index) in driversAbc" :key="`op${index}`"
-                  :value="driver.id">
-                  {{ driver.driverName }}
-                </option>
-                </select>
-              </div>
+             
             </form>
             <!--#endregion Form -->
           </div>
@@ -171,10 +147,10 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               @click="onClickCancel()"
             >
-              Close
+              Bezárás
             </button>
             <button
               type="button"
@@ -182,7 +158,7 @@
               
               @click="onClickSave()"
             >
-              Save changes
+              Mentés
             </button>
           </div>
         </div>

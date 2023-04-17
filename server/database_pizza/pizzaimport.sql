@@ -1,6 +1,3 @@
-CREATE DATABASE pizzeria
-	CHARACTER SET utf8
-	COLLATE utf8_hungarian_ci;
 
 CREATE TABLE pizza (
     id INT PRIMARY KEY,
@@ -41,14 +38,13 @@ AVG_ROW_LENGTH = 5461,
 CHARACTER SET utf8,
 COLLATE utf8_hungarian_ci;
 
+#tesztadatok generálása start
+delete from rendeles;
+delete from pizza;
+delete from cim;
 
 LOAD DATA INFILE 'pizza.txt'
 INTO TABLE pizza
-FIELDS TERMINATED BY '\t'
-IGNORE 1 LINES;
-
-LOAD DATA INFILE 'rendeles.txt'
-INTO TABLE rendeles
 FIELDS TERMINATED BY '\t'
 IGNORE 1 LINES;
 
@@ -57,7 +53,13 @@ INTO TABLE cim
 FIELDS TERMINATED BY '\t'
 IGNORE 1 LINES;
 
+LOAD DATA INFILE 'rendeles.txt'
+INTO TABLE rendeles
+FIELDS TERMINATED BY '\t'
+IGNORE 1 LINES;
 
 SELECT * FROM pizza;
 SELECT * FROM rendeles;
 SELECT * FROM cim;
+
+#tesztadatok generálása vége

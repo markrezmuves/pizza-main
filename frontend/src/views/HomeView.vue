@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <h1>Pizzák</h1>
-    <div class="row row-cols-1 row-cols-sm-2  row-cols-md-3  row-cols-lg-4  g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       <div class="col" v-for="(pizza, index) in pizzas" :key="`pizza${index}`">
         <div class="card">
-          <img :src="pizza.image" class="card-img-top" alt="pizza image" />
+          <img :src="`../../public/${pizza.name}${pizza.size}.jpg`" class="card-img-top" alt="pizza image" />
           <div class="card-body">
             <h5 class="card-title">{{ pizza.name }}</h5>
             <p class="card-text">
-             Méret: {{ pizza.size }} cm <br>
-             Ár: {{ pizza.price }} Ft
+              Méret: {{ pizza.size }} cm <br />
+              Ár: {{ pizza.price }} Ft
             </p>
-            <a href="#" class="btn btn-dark" >Megrendelés</a>
+            <a href="#" class="btn btn-dark">Megrendelés</a>
           </div>
         </div>
       </div>
@@ -36,13 +36,14 @@ export default {
   },
   computed: {
     pizzas() {
-      return this.pizzasData.map(pizza => ({
+      return this.pizzasData.map((pizza) => ({
         name: pizza.nev,
         size: pizza.meret,
         price: pizza.ar,
-        image: 'https://www.mindmegette.hu/images/311/O/kemences-pizza-fekvo.jpg'
+        image:
+          "https://www.mindmegette.hu/images/311/O/kemences-pizza-fekvo.jpg",
       }));
-    }
+    },
   },
   async mounted() {
     await this.getPizzas();
@@ -65,19 +66,19 @@ export default {
 </script>
 
 <style>
-  .card {
-    margin-bottom: 20px;
-  }
-  .card-img-top {
-    border-radius: 5px;
-  }
-  .card-title {
-    margin-bottom: 10px;
-  }
-  .card-text {
-    margin-bottom: 5px;
-  }
-  .btn-primary {
-    margin-top: 10px;
-  }
+.card {
+  margin-bottom: 20px;
+}
+.card-img-top {
+  border-radius: 5px;
+}
+.card-title {
+  margin-bottom: 10px;
+}
+.card-text {
+  margin-bottom: 5px;
+}
+.btn-primary {
+  margin-top: 10px;
+}
 </style>

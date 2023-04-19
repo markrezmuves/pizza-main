@@ -73,6 +73,9 @@ delete http://localhost:3000/users/17
 ### get pizza
 get http://localhost:3000/pizzak
 
+### get pizza
+get http://localhost:3000/pizzak/1
+
 ## User hozzáadása (regisztráció)
 ### mark, 123
 post http://localhost:3000/pizzak

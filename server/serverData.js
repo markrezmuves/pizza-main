@@ -734,7 +734,7 @@ app.put("/trips/:id", (req, res) => {
 
 
 //#region pizza
-app.get("/pizza", (req, res) => {
+app.get("/pizzak", (req, res) => {
   let sql = `SELECT * FROM pizza`;
 
   pool.getConnection(function (error, connection) {
@@ -754,7 +754,83 @@ app.get("/pizza", (req, res) => {
   });
 });
 
+app.post("/pizzak", (req, res) => {
+  const newR = {
+    nev: sanitizeHtml(req.body.nev),
+    meret: req.body.meret,
+    ar: req.body.ar
+  };
+  let sql = `
+  insert into pizza
+  (nev, meret, ar)
+  values 
+  (?, ?, ?);
+    `;
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(
+      sql,
+      [newR.nev, newR.meret, newR.ar ],
+      function (error, result, fields) {
+        sendingPost(res, error, result, newR);
+      }
+    );
+    connection.release();
+  });
+});
 
+app.delete("/pizzak/:id", (req, res) => {
+  const id = req.params.id;
+
+  let sql = `
+    DELETE FROM pizza
+    WHERE id = ?`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, [id], function (error, result, fields) {
+      sendingDelete(res, error, result, id);
+    });
+    connection.release();
+  });
+});
+
+app.put("/pizzak/:id", (req, res) => {
+  const id = req.params.id;
+  const newR = {
+    nev: sanitizeHtml(req.body.nev),
+    meret: req.body.meret,
+    ar: req.body.ar
+  };
+  let sql = `
+    UPDATE pizza SET
+    nev = ?,
+    meret = ?,
+    ar = ?
+    WHERE id = ?
+      `;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(
+      sql,
+      [newR.nev, newR.meret, newR.ar, id],
+      function (error, result, fields) {
+        sendingPut(res, error, result, id, newR);
+      }
+    );
+    connection.release();
+  });
+});
 //#endregion pizza
 
 function mySanitizeHtml(data) {

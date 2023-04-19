@@ -71,8 +71,32 @@ delete http://localhost:3000/users/17
 
 ### ---------------------------------------
 ### get pizza
-get http://localhost:3000/pizza
+get http://localhost:3000/pizzak
+
+## User hozzáadása (regisztráció)
+### mark, 123
+post http://localhost:3000/pizzak
+Content-Type: application/json
+
+{
+     "nev": "Bolognai",
+      "meret": 22,
+      "ar": 1150
+}
 
 
 
+
+### Delete user
+delete http://localhost:3000/pizzak/121
+
+###put
+put http://localhost:3000/pizzak/124
+Content-Type: application/json
+
+{
+     "nev": "Bolognai",
+      "meret": 22,
+      "ar": 1150
+}
 

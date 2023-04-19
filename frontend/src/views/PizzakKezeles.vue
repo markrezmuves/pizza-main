@@ -24,17 +24,17 @@
       </thead>
       <tbody>
         <tr
-          v-for="(car, index) in cars"
-          :key="`car${index}`"
-          :class="currentRowBackground(car.id)"
-          @click="onClikRow(car.id)"
+          v-for="(pizza, index) in pizzak"
+          :key="`pizza${index}`"
+          :class="currentRowBackground(pizza.id)"
+          @click="onClikRow(pizza.id)"
         >
           <td class="text-nowrap">
             <!-- törlés -->
             <button
               type="button"
               class="btn btn-outline-danger btn-sm"
-              @click="onClickDelete(car.id)"
+              @click="onClickDelete(pizza.id)"
             >
               <i class="bi bi-trash3-fill"></i>
             </button>
@@ -43,23 +43,15 @@
             <button
               type="button"
               class="btn btn-outline-primary btn-sm ms-2"
-              @click="onClickEdit(car.id)"
+              @click="onClickEdit(pizza.id)"
             >
               <i class="bi bi-pencil-fill"></i>
             </button>
           </td>
-          <td>{{ pizza.name }}</td>
-          <td>{{ pizza.size }}</td>
-          <td>{{ pizza.prices }}</td>
-          <td>
-            <input
-              class="form-check-input"
-              disabled
-              type="checkbox"
-              :id="`cb${index}`"
-              v-model="car.outOfTraffic"
-            />
-          </td>
+          <td>{{ pizza.nev }}</td>
+          <td>{{ pizza.meret }}</td>
+          <td>{{ pizza.ar }}</td>
+        
         </tr>
       </tbody>
     </table>
@@ -92,52 +84,48 @@
             <!--#region Form -->
 
             <form class="row g-3 needs-validation" novalidate>
-              <!-- Autó név -->
+              <!-- pizzs név -->
               <div class="col-md-12">
-                <label for="name" class="form-label">Pizza neve</label>
+                <label for="nev" class="form-label">Pizza neve</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="name"
+                  id="nev"
                   required
-                  v-model="editableCar.name"
+                  v-model="editablePizza.nev"
                 />
                 <div class="invalid-feedback">A pizza név kitöltése kötelező</div>
               </div>
 
-              <!-- Rendszám -->
+              <!-- pizza mérete  -->
               <div class="col-md-6">
-                <label for="licenceNumber" class="form-label">A pizza mérete</label>
+                <label for="meret" class="form-label">A pizza mérete</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="licenceNumber"
+                  id="meret"
                   required
-                  v-model="editableCar.licenceNumber"
+                  v-model="editablePizza.meret"
                 />
                 <div class="invalid-feedback">
-                  A rendszám kitöltése kötelező
+                  A pizza méretének kitöltése kötelező
                 </div>
               </div>
 
-              <!-- Rendszám -->
+              <!-- ar -->
               <div class="col-md-6">
-                <label for="hourlyRate" class="form-label"
+                <label for="ar" class="form-label"
                   >Ára</label
                 >
                 <input
                   type="number"
                   class="form-control"
-                  id="hourlyRate"
+                  id="ar"
                   required
-                  v-model="editableCar.hourlyRate"
+                  v-model="editablePizza.ar"
                 />
-                <div class="invalid-feedback">A tarifa kitöltése kötelező</div>
+                <div class="invalid-feedback">Az ár kitöltése kötelező</div>
               </div>
-
-              <!-- out of traffic -->
-             
-
              
             </form>
             <!--#endregion Form -->
@@ -175,21 +163,17 @@ import { useLoginStore } from "@/stores/login";
 const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
-class Car {
+class Pizza {
   constructor(
     id = 0,
-    name = null,
-    licenceNumber = null,
-    hourlyRate = null,
-    outOfTraffic = false,
-    driverId = null
+    nev = null,
+    meret = null,
+    ar = null
   ) {
     this.id = id;
-    this.name = name;
-    this.licenceNumber = licenceNumber;
-    this.hourlyRate = hourlyRate;
-    this.outOfTraffic = outOfTraffic;
-    this.driverId = driverId;
+    this.nev = nev;
+    this.meret = meret;
+    this.ar = ar;
   }
 }
 
@@ -198,8 +182,8 @@ export default {
     return {
       storeUrl,
       storeLogin,
-      cars: [],
-      editableCar: new Car(),
+      pizzak: [],
+      editablePizza: new Pizza(),
       modal: null,
       form: null,
       state: "view",
@@ -208,7 +192,7 @@ export default {
     };
   },
   mounted() {
-    this.getCars();
+    this.getPizzak();
     this.getFreeDriversAbc();
     this.modal = new bootstrap.Modal(document.getElementById("modalCar"), {
       keyboard: false,
@@ -217,8 +201,8 @@ export default {
     this.form = document.querySelector(".needs-validation");
   },
   methods: {
-    async getCars() {
-      let url = this.storeUrl.urlCarsWithDrivers;
+    async getPizzak() {
+      let url = this.storeUrl.urlPizzak;
       const config = {
         method: "GET",
         headers: {
@@ -227,14 +211,14 @@ export default {
       };
       const response = await fetch(url, config);
       const data = await response.json();
-      this.cars = data.data;
+      this.pizzak = data.data;
       // this.cars = data.data.map((car) => {
       //   car.outOfTraffic = car.outOfTraffic === 1;
       //   return car;
       // });
     },
-    async getCarById(id) {
-      let url = `${this.storeUrl.urlCars}/${id}`;
+    async getPizzaById(id) {
+      let url = `${this.storeUrl.urlPizzak}/${id}`;
       const config = {
         method: "GET",
         headers: {
@@ -243,7 +227,7 @@ export default {
       };
       const response = await fetch(url, config);
       const data = await response.json();
-      this.editableCar = data.data;
+      this.editablePizza = data.data;
     },
 
     async getFreeDriversAbc() {
@@ -259,9 +243,10 @@ export default {
       this.driversAbc = data.data;
     },
 
-    async postCar() {
-      let url = this.storeUrl.urlCars;
-      const body = JSON.stringify(this.editableCar);
+    async postPizza() {
+      let url = this.storeUrl.urlPizzak;
+      const body = JSON.stringify(this.editablePizza);
+      console.log(url,body);
       const config = {
         method: "POST",
         headers: {
@@ -271,12 +256,14 @@ export default {
         body: body,
       };
       const response = await fetch(url, config);
-      this.getCars();
+      const data = await response.json();
+      console.log("x",data.data);
+      this.getPizzak();
     },
-    async putCar() {
-      const id = this.editableCar.id;
-      let url = `${this.storeUrl.urlCars}/${id}`;
-      const body = JSON.stringify(this.editableCar);
+    async putPizza() {
+      const id = this.editablePizza.id;
+      let url = `${this.storeUrl.urlPizzak}/${id}`;
+      const body = JSON.stringify(this.editablePizza);
       const config = {
         method: "PUT",
         headers: {
@@ -286,10 +273,10 @@ export default {
         body: body,
       };
       const response = await fetch(url, config);
-      this.getCars();
+      this.getPizzak();
     },
-    async deleteCar(id) {
-      let url = `${this.storeUrl.urlCars}/${id}`;
+    async deletePizza(id) {
+      let url = `${this.storeUrl.urlPizzak}/${id}`;
       const config = {
         method: "DELETE",
         headers: {
@@ -298,7 +285,7 @@ export default {
         },
       };
       const response = await fetch(url, config);
-      this.getCars();
+      this.getPizzak();
     },
     onClikRow(id) {
       this.currentId = id;
@@ -306,22 +293,22 @@ export default {
     onClickNew() {
       this.state = "new";
       this.currentId = null;
-      this.editableCar = new Car();
+      this.editablePizza = new Pizza();
       this.modal.show();
     },
     onClickDelete(id) {
       this.state = "delete";
-      this.deleteCar(id);
+      this.deletePizza(id);
       this.currentId = null;
     },
     onClickEdit(id) {
       this.state = "edit";
-      this.getCarById(id);
+      this.getPizzaById(id);
       this.getFreeDriversAbc();
       this.modal.show();
     },
     onClickCancel() {
-      this.editableCar = new Car();
+      this.editablePizza = new Pizza();
       this.modal.hide();
     },
     onClickSave() {
@@ -329,16 +316,15 @@ export default {
       if (this.form.checkValidity()) {
         if (this.state == "edit") {
           //put
-          this.putCar();
+          this.putPizza();
           // this.modal.hide();
         } else if (this.state == "new") {
           //post
-          this.postCar();
+          this.postPizza();
           // this.modal.hide();
         }
         this.modal.hide();
-        //frissíti a taxisok listáját
-        this.getFreeDriversAbc()
+  this.getPizzak();
       }
     },
     currentRowBackground(id) {

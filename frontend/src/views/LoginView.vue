@@ -103,10 +103,10 @@ export default {
 
 <style>
 .login-panel {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 10px;
+  background-color: whitesmoke;
+  border-radius: 120px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -120,25 +120,25 @@ export default {
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background-color: #f2f2f2;
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
 .login-button {
-  background-color: #4caf50;
-  color: #fff;
+  background-color: gray;
+  color: black;
   border: none;
   border-radius: 8px;
   padding: 1rem 2rem;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.5s ease-in-out;
 }
 
 .login-button:hover {
-  background-color: #43a047;
+  background-color: white;
 }
 
 .login-error-message {

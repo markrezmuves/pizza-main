@@ -117,88 +117,9 @@
               <TriggersCollapsed>True</TriggersCollapsed>
             </Compartments>
           </Model>
-          <Model xsi:type="RelationLinkModel">
-            <CustomProperties>
-              <OID>4</OID>
-              <Comment>5</Comment>
-              <OutModel>3</OutModel>
-              <InModel>1</InModel>
-              <OutPort>6</OutPort>
-              <InPort>7</InPort>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port>
-                <Location>
-                  <X>161 px</X>
-                  <Y>86 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>6</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-              </Port>
-              <Port>
-                <Location>
-                  <X>3 px</X>
-                  <Y>41 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Left</Align>
-                <CustomProperties>
-                  <OID>7</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-              </Port>
-            </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>330 px</X>
-                <Y>46 px</Y>
-              </PointD>
-              <PointD>
-                <X>330 px</X>
-                <Y>71 px</Y>
-              </PointD>
-            </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
-            <DbOid>
-              <Path>pizzeria.rendeles.FK_rendeles_cim_id</Path>
-              <TypeName>ForeignKey</TypeName>
-            </DbOid>
-          </Model>
-          <Model xsi:type="RelationCommentModel">
-            <CustomProperties>
-              <OID>5</OID>
-              <HolderModel>4</HolderModel>
-              <Port>8</Port>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port xsi:type="LinkPort">
-                <Location>
-                  <X>-77 px</X>
-                  <Y>-12.5 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>8</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-                <LinkPortAnchor>OutPoint</LinkPortAnchor>
-              </Port>
-            </PortAnchors>
-            <CommentOffset>
-              <X>22 px</X>
-              <Y>2 px</Y>
-            </CommentOffset>
-          </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>9</OID>
+              <OID>4</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
@@ -221,10 +142,89 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
+              <OID>5</OID>
+              <Comment>6</Comment>
+              <OutModel>3</OutModel>
+              <InModel>2</InModel>
+              <OutPort>7</OutPort>
+              <InPort>8</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>-6 px</X>
+                  <Y>60 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>7</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>131 px</X>
+                  <Y>38 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Right</Align>
+                <CustomProperties>
+                  <OID>8</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>70 px</X>
+                <Y>20 px</Y>
+              </PointD>
+              <PointD>
+                <X>70 px</X>
+                <Y>118 px</Y>
+              </PointD>
+            </BendPoints>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>pizzeria.rendeles.FK_rendeles_pizza_id</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>6</OID>
+              <HolderModel>5</HolderModel>
+              <Port>9</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>20 px</X>
+                  <Y>-49 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>9</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>22 px</X>
+              <Y>2 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
               <OID>10</OID>
               <Comment>11</Comment>
               <OutModel>3</OutModel>
-              <InModel>2</InModel>
+              <InModel>1</InModel>
               <OutPort>12</OutPort>
               <InPort>13</InPort>
               <Parent>0</Parent>
@@ -232,11 +232,11 @@
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>-7 px</X>
-                  <Y>36 px</Y>
+                  <X>171 px</X>
+                  <Y>86 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>12</OID>
                   <PortType>FixedAnchor</PortType>
@@ -244,30 +244,30 @@
               </Port>
               <Port>
                 <Location>
-                  <X>142 px</X>
-                  <Y>32 px</Y>
+                  <X>0 px</X>
+                  <Y>28.5 px</Y>
                 </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>13</OID>
-                  <PortType>FixedAnchor</PortType>
+                  <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>40 px</X>
-                <Y>-4 px</Y>
+                <X>273 px</X>
+                <Y>46 px</Y>
               </PointD>
               <PointD>
-                <X>40 px</X>
-                <Y>112 px</Y>
+                <X>273 px</X>
+                <Y>58.5 px</Y>
               </PointD>
             </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
+            <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>pizzeria.rendeles.FK_rendeles_pizza_id</Path>
+              <Path>pizzeria.rendeles.FK_rendeles_cim_id</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -281,11 +281,11 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>50 px</X>
-                  <Y>-58 px</Y>
+                  <X>-78.5 px</X>
+                  <Y>-12.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>14</OID>
                   <PortType>FixedAnchor</PortType>
@@ -304,7 +304,7 @@
           <Scale>1</Scale>
           <Location>
             <X>-647 px</X>
-            <Y>-121 px</Y>
+            <Y>-105 px</Y>
           </Location>
         </ViewPort>
       </Model>

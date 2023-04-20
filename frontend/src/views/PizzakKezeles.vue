@@ -4,7 +4,7 @@
     <h1>Pizzák kezelése</h1>
 
     <!--#region táblázat -->
-    <table class="table table-bordered table-hover w-auto">
+    <table class="table table-bordered table-hover w-auto" >
       <thead>
         <tr>
           <th>
@@ -349,6 +349,18 @@ export default {
 
 <style>
 .my-bg-current-row {
-  background-color: lightgrey;
+
+  background-color: gray;
 }
+table {
+    background-color: #dcdcdc;
+  }
+
+  tr:hover {
+    background-color: #b3b3b3;
+  }
+
+  tbody tr {
+    background-color: #f5f5f5;
+  }
 </style>

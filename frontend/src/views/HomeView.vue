@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1>Pizzák</h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       <div class="col" v-for="(pizza, index) in pizzas" :key="`pizza${index}`">
         <div class="card">
@@ -80,5 +79,8 @@ export default {
 }
 .btn-primary {
   margin-top: 10px;
+}
+body {
+  background-image: url('C:\Tanulók\szoftverfejleszto2022-2023\Rézműves Márk\pizzaprojekt\pizza-main\frontend\public/wallpaper.jpg');
 }
 </style>

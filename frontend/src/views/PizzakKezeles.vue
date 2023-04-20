@@ -4,6 +4,7 @@
     <h1>Pizzák kezelése</h1>
 
     <!--#region táblázat -->
+    <div class="my-overflow">
     <table class="table table-bordered table-hover w-auto" >
       <thead>
         <tr>
@@ -55,6 +56,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
     <!--#endregion táblázat -->
 
     <!--#region Modal -->
@@ -362,5 +364,10 @@ table {
 
   tbody tr {
     background-color: #f5f5f5;
+  }
+
+  .my-overflow{
+    height: 300px;
+    overflow-y: scroll;
   }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-      <div class="col" v-for="(pizza, index) in pizzas" :key="`pizza${index}`">
+      <div class="col" v-for="(pizza, index) in pizzasData" :key="`pizza${index}`">
         <div class="card">
-          <img :src="`../../public/${pizza.name}${pizza.size}.jpg`" class="card-img-top" alt="pizza image" />
+          <img :src="`../../public/${pizza.nev}${pizza.meret}.jpg`" class="card-img-top" alt="pizza image" />
           <div class="card-body">
-            <h5 class="card-title">{{ pizza.name }}</h5>
+            <h5 class="card-title">{{ pizza.nev }}</h5>
             <p class="card-text">
-              Méret: {{ pizza.size }} cm <br />
-              Ár: {{ pizza.price }} Ft
+              Méret: {{ pizza.meret }} cm <br />
+              Ár: {{ pizza.ar }} Ft
             </p>
             <a href="#" class="btn btn-dark">Megrendelés</a>
           </div>
@@ -44,12 +44,13 @@ export default {
       }));
     },
   },
-  async mounted() {
-    await this.getPizzas();
+  mounted() {
+    this.getPizzas();
   },
   methods: {
     async getPizzas() {
-      const url = this.storeUrl.urlPizza;
+      const url = this.storeUrl.urlPizzak;
+      console.log("xxx",url);
       const config = {
         method: "GET",
         headers: {

@@ -1,7 +1,7 @@
 <template>
   <div class="about-section">
     <div class="about-header">
-      <h1>Rólunk</h1>
+      <h1 class="about-content">Rólunk</h1>
     </div>
     <div class="about-content">
       <p>
@@ -50,6 +50,7 @@
 .about-content {
   max-width: 800px;
   text-align: justify;
+  color: white;
 }
 
  @media screen and (max-width: 768px) {

@@ -31,7 +31,7 @@ export default {};
 
 <style>
 .carousel-item img {
-  height: 600px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -39,7 +39,7 @@ export default {};
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 100%;
+  width: 85%;
   z-index: 1;
 }
 

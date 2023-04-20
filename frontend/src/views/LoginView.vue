@@ -1,34 +1,36 @@
 <template>
-  <div class="p-3 my-width-login">
-    <!-- user name -->
+  <div class="login-panel p-4">
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold text-gray-800">Sign In</h2>
+    </div>
     <div class="mb-3">
-      <label for="userName" class="form-label">User name:</label>
+      <label for="userName" class="sr-only">User name:</label>
       <input
         type="text"
-        class="form-control"
+        class="login-input"
         id="userName"
+        placeholder="User name"
         v-model="storeLogin.userName"
       />
     </div>
-    <!-- password -->
     <div class="mb-3">
-      <label for="password" class="form-label">password:</label>
+      <label for="password" class="sr-only">Password:</label>
       <input
         type="password"
-        class="form-control"
+        class="login-input"
         id="password"
+        placeholder="Password"
         v-model="storeLogin.password"
       />
     </div>
-    <!-- Button login -->
-    <button type="button" class="btn btn-primary mb-3" @click="login()">
-      Login
+    <button type="button" class="login-button" @click="login()">
+      Sign In
     </button>
+    <div v-if="loginErrorMessage" class="login-error-message">
+  {{ loginErrorMessage }}
+</div>
+</div>
 
-    <div v-if="loginErrorMessage" class="alert alert-danger" role="alert">
-      {{ loginErrorMessage }}
-    </div>
-  </div>
 </template>
 
 <script>
@@ -100,7 +102,49 @@ export default {
 </script>
 
 <style>
-.my-width-login {
+.login-panel {
   max-width: 500px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login-input {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  background-color: #f2f2f2;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.login-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.login-button:hover {
+  background-color: #43a047;
+}
+
+.login-error-message {
+  color: #f44336;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 </style>

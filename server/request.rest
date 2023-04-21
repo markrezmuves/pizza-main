@@ -103,3 +103,6 @@ Content-Type: application/json
       "ar": 1150
 }
 
+###get pizzak szurese 
+get http://localhost:3000/pizzakkeres/sajt
+

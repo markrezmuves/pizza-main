@@ -24,3 +24,7 @@ SELECT * FROM cim;
   #put .../pizzak/2
     update pizza set nev = 'asddd', meret = 4534, ar = 345353535 where id = 118;
          
+
+    #get ../pizzak/sajt
+
+      select * from pizza where like nev '%sajt%';

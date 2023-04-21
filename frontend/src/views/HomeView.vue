@@ -21,17 +21,30 @@
 <script>
 import { useUrlStore } from "@/stores/url";
 import { useLoginStore } from "@/stores/login";
-
+import { storeToRefs } from "pinia";
+import { useKeresStore } from "@/stores/keres";
+const storeKeres = useKeresStore();
+const { keresoszo } = storeToRefs(storeKeres);
 const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
 export default {
   data() {
     return {
+      keresoszo,
       storeUrl,
       storeLogin,
       pizzasData: [],
     };
+  },
+  watch: {
+    keresoszo(){
+      if (this.keresoszo.trim()) {
+        this.getPizzasSzur();
+      } else {
+        this.getPizzas();
+      }
+    }
   },
   computed: {
     pizzas() {
@@ -51,6 +64,19 @@ export default {
     async getPizzas() {
       const url = this.storeUrl.urlPizzak;
       console.log("xxx",url);
+      const config = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+      };
+      const response = await fetch(url, config);
+      const data = await response.json();
+      this.pizzasData = data.data;
+    },
+    async getPizzasSzur() {
+      const url = `${this.storeUrl.urlPizzakKeres}/${this.keresoszo}`;
+      console.log("szűr",url);
       const config = {
         method: "GET",
         headers: {

@@ -45,6 +45,9 @@ export const useUrlStore = defineStore({
     },
     urlPizzak(){
       return `${this.urlData}/pizzak`
+    },
+    urlPizzakKeres(){
+      return `${this.urlData}/pizzakkeres`
     }
   },
 });

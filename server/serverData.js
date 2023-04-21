@@ -781,6 +781,34 @@ app.get("/pizzak/:id", (req, res) => {
   });
 });
 
+app.get("/pizzakkeres/:keresoszo", (req, res) => {
+  const keresoszo =`%${req.params.keresoszo}%`;
+  console.log(keresoszo);
+  let sql = `
+  select * from pizza where nev like ?`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, [keresoszo], async function (error, results, fields) {
+      if (error) {
+        const message = "Cars sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      if (results.length == 0) {
+        const message = `Not found keresoszo: ${keresoszo}`;
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGetById(res, null, results, keresoszo);
+    });
+    connection.release();
+  });
+});
+
 
 app.post("/pizzak", (req, res) => {
   const newR = {

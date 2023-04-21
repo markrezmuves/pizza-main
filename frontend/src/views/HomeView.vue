@@ -63,7 +63,6 @@ export default {
   methods: {
     async getPizzas() {
       const url = this.storeUrl.urlPizzak;
-      console.log("xxx",url);
       const config = {
         method: "GET",
         headers: {
@@ -76,7 +75,6 @@ export default {
     },
     async getPizzasSzur() {
       const url = `${this.storeUrl.urlPizzakKeres}/${this.keresoszo}`;
-      console.log("szűr",url);
       const config = {
         method: "GET",
         headers: {

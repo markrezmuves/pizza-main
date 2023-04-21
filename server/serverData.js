@@ -783,7 +783,6 @@ app.get("/pizzak/:id", (req, res) => {
 
 app.get("/pizzakkeres/:keresoszo", (req, res) => {
   const keresoszo =`%${req.params.keresoszo}%`;
-  console.log(keresoszo);
   let sql = `
   select * from pizza where nev like ?`;
 

@@ -2,7 +2,7 @@
 <template>
   <div>
     <h1>Cím kezelése</h1>
-    
+
 
     <!--#region táblázat -->
     <div class="my-overflow">
@@ -16,7 +16,7 @@
               class="btn btn-outline-success btn-sm"
               @click="onClickNew()"
             >
-              Új cím
+              Új címaaaa
             </button>
           </th>
           <th>Név</th>

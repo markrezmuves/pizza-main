@@ -105,7 +105,5 @@ export default {
 .btn-primary {
   margin-top: 10px;
 }
-body {
-  background-image: url('C:\Tanulók\szoftverfejleszto2022-2023\Rézműves Márk\pizzaprojekt\pizza-main\frontend\public/wallpaper.jpg');
-}
+
 </style>

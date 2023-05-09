@@ -44,7 +44,7 @@
               aria-expanded="false"
               :class="{ active: menuState === 4 }"
               @click="onClickMenu(4)"
-              >Pizzákkal kapcsolatos szerkesztések</a
+              >Pizzák szerkesztése</a
             >
             <ul class="dropdown-menu">
               <li>
@@ -63,7 +63,7 @@
               </li>
               <li>
                 <router-link class="dropdown-item" to="/UjPizza"
-                  >Egyelőre nemtudom ide mit irjak</router-link
+                  >Címek kezelése</router-link
                 >
               </li>
             </ul>
@@ -169,4 +169,5 @@ function onClickMenu(number) {
 
 .navbar-nav > li > .dropdown-menu a:link,
 .navbar-nav > li > .dropdown-menu a:hover { background-color: black} */
+
 </style>

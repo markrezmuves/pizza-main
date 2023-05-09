@@ -1,24 +1,87 @@
 <template>
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-      <div class="col" v-for="(pizza, index) in pizzasData" :key="`pizza${index}`">
+      <div
+        class="col"
+        v-for="(pizza, index) in pizzasData"
+        :key="`pizza${index}`"
+      >
         <div class="card">
-          <img :src="`../../public/${pizza.nev}${pizza.meret}.jpg`" class="card-img-top" alt="pizza image" />
+          <img
+            :src="`../../public/${pizza.nev}${pizza.meret}.jpg`"
+            class="card-img-top"
+            alt="pizza image"
+          />
           <div class="card-body">
             <h5 class="card-title">{{ pizza.nev }}</h5>
             <p class="card-text">
               Méret: {{ pizza.meret }} cm <br />
               Ár: {{ pizza.ar }} Ft
             </p>
-            <a href="#" class="btn btn-dark">Megrendelés</a>
+
+            <button
+              v-if="storeLogin.loginSuccess"
+              href="#"
+              class="btn btn-dark"
+              @click="onClickNew()"
+            >
+              Megrendelés
+            </button>
           </div>
         </div>
       </div>
     </div>
+
+    <!--#region Modal -->
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--#endregion Modal -->
   </div>
 </template>
 
 <script>
+import * as bootstrap from "bootstrap";
 import { useUrlStore } from "@/stores/url";
 import { useLoginStore } from "@/stores/login";
 import { storeToRefs } from "pinia";
@@ -35,16 +98,27 @@ export default {
       storeUrl,
       storeLogin,
       pizzasData: [],
+      stateTitle: "modalcim",
+      modal: null,
+      form: null,
     };
   },
+  mounted() {
+    this.getPizzas();
+    this.modal = new bootstrap.Modal(document.getElementById("exampleModal"), {
+      keyboard: false,
+    });
+
+    this.form = document.querySelector(".needs-validation");
+  },
   watch: {
-    keresoszo(){
+    keresoszo() {
       if (this.keresoszo.trim()) {
         this.getPizzasSzur();
       } else {
         this.getPizzas();
       }
-    }
+    },
   },
   computed: {
     pizzas() {
@@ -57,9 +131,7 @@ export default {
       }));
     },
   },
-  mounted() {
-    this.getPizzas();
-  },
+
   methods: {
     async getPizzas() {
       const url = this.storeUrl.urlPizzak;
@@ -85,6 +157,18 @@ export default {
       const data = await response.json();
       this.pizzasData = data.data;
     },
+    onClickNew() {
+      this.state = "new";
+      // this.currentId = null;
+      // this.editablePizza = new Pizza();
+      this.modal.show();
+    },
+    onClickCancel() {
+      this.modal.hide();
+    },
+    onClickSave() {
+      this.modal.hide();
+    },
   },
 };
 </script>
@@ -105,5 +189,4 @@ export default {
 .btn-primary {
   margin-top: 10px;
 }
-
 </style>

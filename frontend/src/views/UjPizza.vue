@@ -16,7 +16,7 @@
               class="btn btn-outline-success btn-sm"
               @click="onClickNew()"
             >
-              Új címaaaa
+              Új cím
             </button>
           </th>
           <th>Név</th>
@@ -156,6 +156,9 @@
       </div>
     </div>
     <!--#endregion Modal -->
+
+
+    
   </div>
 </template>
 

@@ -3,61 +3,59 @@
   <div>
     <h1>Cím kezelése</h1>
 
-
     <!--#region táblázat -->
     <div class="my-overflow">
-    <table class="table table-bordered table-hover w-auto" >
-      <thead>
-        <tr>
-          <th>
-            <!-- New car -->
-            <button
-              type="button"
-              class="btn btn-outline-success btn-sm"
-              @click="onClickNew()"
-            >
-              Új cím
-            </button>
-          </th>
-          <th>Név</th>
-          <th>Utca</th>
-          <th>Ház szám</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(cim, index) in cimek"
-          :key="`pizza${index}`"
-          :class="currentRowBackground(cim.id)"
-          @click="onClikRow(cim.id)"
-        >
-          <td class="text-nowrap">
-            <!-- törlés -->
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              @click="onClickDelete(cim.id)"
-            >
-              <i class="bi bi-trash3-fill"></i>
-            </button>
+      <table class="table table-bordered table-hover w-auto">
+        <thead>
+          <tr>
+            <th>
+              <!-- New car -->
+              <button
+                type="button"
+                class="btn btn-outline-success btn-sm"
+                @click="onClickNew()"
+              >
+                Új cím
+              </button>
+            </th>
+            <th>Név</th>
+            <th>Utca</th>
+            <th>Ház szám</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(cim, index) in cimek"
+            :key="`pizza${index}`"
+            :class="currentRowBackground(cim.id)"
+            @click="onClikRow(cim.id)"
+          >
+            <td class="text-nowrap">
+              <!-- törlés -->
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                @click="onClickDelete(cim.id)"
+              >
+                <i class="bi bi-trash3-fill"></i>
+              </button>
 
-            <!-- módosítás -->
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm ms-2"
-              @click="onClickEdit(cim.id)"
-            >
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-          </td>
-          <td>{{ cim.nev }}</td>
-          <td>{{ cim.utca }}</td>
-          <td>{{ cim.hsz }}</td>
-        
-        </tr>
-      </tbody>
-    </table>
-  </div>
+              <!-- módosítás -->
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm ms-2"
+                @click="onClickEdit(cim.id)"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+            </td>
+            <td>{{ cim.nev }}</td>
+            <td>{{ cim.utca }}</td>
+            <td>{{ cim.hsz }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!--#endregion táblázat -->
 
     <!--#region Modal -->
@@ -97,7 +95,9 @@
                   required
                   v-model="editableCimek.nev"
                 />
-                <div class="invalid-feedback">A megrendelő név kitöltése kötelező</div>
+                <div class="invalid-feedback">
+                  A megrendelő név kitöltése kötelező
+                </div>
               </div>
 
               <!-- pizza mérete  -->
@@ -110,16 +110,12 @@
                   required
                   v-model="editableCimek.utca"
                 />
-                <div class="invalid-feedback">
-                  Az utca kitöltése kötelező
-                </div>
+                <div class="invalid-feedback">Az utca kitöltése kötelező</div>
               </div>
 
               <!-- ar -->
               <div class="col-md-6">
-                <label for="ar" class="form-label"
-                  >Házszám</label
-                >
+                <label for="ar" class="form-label">Házszám</label>
                 <input
                   type="number"
                   class="form-control"
@@ -127,9 +123,10 @@
                   required
                   v-model="editableCimek.hsz"
                 />
-                <div class="invalid-feedback">Az házszám kitöltése kötelező</div>
+                <div class="invalid-feedback">
+                  Az házszám kitöltése kötelező
+                </div>
               </div>
-             
             </form>
             <!--#endregion Form -->
           </div>
@@ -146,7 +143,6 @@
             <button
               type="button"
               class="btn btn-primary"
-              
               @click="onClickSave()"
             >
               Mentés
@@ -156,9 +152,6 @@
       </div>
     </div>
     <!--#endregion Modal -->
-
-
-    
   </div>
 </template>
 
@@ -170,12 +163,7 @@ const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
 class Cimek {
-  constructor(
-    id = 0,
-    nev = null,
-    utca = null,
-    hsz = null
-  ) {
+  constructor(id = 0, nev = null, utca = null, hsz = null) {
     this.id = id;
     this.cimnev = nev;
     this.utca = utca;
@@ -252,7 +240,7 @@ export default {
     async postCimek() {
       let url = this.storeUrl.urlCimek;
       const body = JSON.stringify(this.editableCimek);
-      console.log(url,body);
+      console.log(url, body);
       const config = {
         method: "POST",
         headers: {
@@ -263,7 +251,7 @@ export default {
       };
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("x",data.data);
+      console.log("x", data.data);
       this.getCimek();
     },
     async putCimek() {
@@ -330,7 +318,7 @@ export default {
           // this.modal.hide();
         }
         this.modal.hide();
-  this.getCimek();
+        this.getCimek();
       }
     },
     currentRowBackground(id) {
@@ -355,23 +343,22 @@ export default {
 
 <style>
 .my-bg-current-row {
-
   background-color: gray;
 }
 table {
-    background-color: #dcdcdc;
-  }
+  background-color: #dcdcdc;
+}
 
-  tr:hover {
-    background-color: #b3b3b3;
-  }
+tr:hover {
+  background-color: #b3b3b3;
+}
 
-  tbody tr {
-    background-color: #f5f5f5;
-  }
+tbody tr {
+  background-color: #f5f5f5;
+}
 
-  .my-overflow{
-    height: 300px;
-    overflow-y: scroll;
-  }
+.my-overflow {
+  height: 300px;
+  overflow-y: scroll;
+}
 </style>

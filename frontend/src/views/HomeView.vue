@@ -34,19 +34,11 @@
 
     <!--#region Modal -->
     <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Launch demo modal
-    </button>
 
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="modalpizza"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -54,7 +46,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Címek</h1>
             <button
               type="button"
               class="btn-close"
@@ -62,16 +54,35 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
+          <table class="table table-bordered table-hover w-auto">
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Utca</th>
+                <th>Ház szám</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(cim, index) in cimek"
+                :key="`cim${index}`"
+                @click="onClikRow(cim.id)"
+              >
+                <td>{{ cim.nev }}</td>
+                <td>{{ cim.utca }}</td>
+                <td>{{ cim.hsz }}</td>
+              </tr>
+            </tbody>
+          </table>
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-danger"
               data-bs-dismiss="modal"
             >
-              Close
+              Bezárás
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary">Mentés</button>
           </div>
         </div>
       </div>
@@ -91,21 +102,34 @@ const { keresoszo } = storeToRefs(storeKeres);
 const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
+class Cimek {
+  constructor(id = 0, nev = null, utca = null, hsz = null) {
+    this.id = id;
+    this.cimnev = nev;
+    this.utca = utca;
+    this.hazszam = hsz;
+  }
+}
+
 export default {
   data() {
     return {
       keresoszo,
       storeUrl,
+      cimek: [],
+      editableCimek: new Cimek(),
       storeLogin,
       pizzasData: [],
       stateTitle: "modalcim",
       modal: null,
+      state: "view",
       form: null,
     };
   },
   mounted() {
+    this.getCimek();
     this.getPizzas();
-    this.modal = new bootstrap.Modal(document.getElementById("exampleModal"), {
+    this.modal = new bootstrap.Modal(document.getElementById("modalpizza"), {
       keyboard: false,
     });
 
@@ -133,6 +157,23 @@ export default {
   },
 
   methods: {
+    async getCimek() {
+      let url = this.storeUrl.urlCimek;
+      const config = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+      };
+      const response = await fetch(url, config);
+      const data = await response.json();
+      this.cimek = data.data;
+      // this.cars = data.data.map((car) => {
+      //   car.outOfTraffic = car.outOfTraffic === 1;
+      //   return car;
+      // });
+    },
+
     async getPizzas() {
       const url = this.storeUrl.urlPizzak;
       const config = {

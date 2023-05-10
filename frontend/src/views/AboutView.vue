@@ -28,14 +28,34 @@
         számára készült. Várjuk Önt szeretettel a közösségünkben!
       </p>
     </div>
+
+    <hr />
+
+    <div class="contact-section">
+      <h2 class="contact-header">Elérhetőségek</h2>
+      <div class="contact-icons">
+        <a href="tel:123456789" class="contact-icon">
+          <i class="bi bi-telephone"></i>
+        </a>
+        <a href="https://www.instagram.com" target="_blank" class="contact-icon">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com" target="_blank" class="contact-icon">
+          <i class="bi bi-facebook"></i>
+        </a>
+      </div>
+    </div>
   </div>
 </template>
+
 <script setup>
 </script>
+
 <style>
 .about-section {
   display: flex;
-  flex-direction: column;
+  flex-direction:
+  column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
@@ -53,7 +73,28 @@
   color: white;
 }
 
- @media screen and (max-width: 768px) {
+.contact-section {
+  margin-top: 3rem;
+}
+
+.contact-header {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.contact-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
   .about-header h1 {
     font-size: 2rem;
   }
@@ -63,5 +104,12 @@
     line-height: 1.2rem;
   }
 
+  .contact-header {
+    font-size: 1.5rem;
+  }
+
+  .contact-icon {
+    font-size: 1.5rem;
+  }
 }
 </style>

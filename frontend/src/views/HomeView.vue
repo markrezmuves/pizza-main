@@ -46,7 +46,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Címek</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Rendelés</h1>
             <button
               type="button"
               class="btn-close"
@@ -54,26 +54,40 @@
               aria-label="Close"
             ></button>
           </div>
-          <table class="table table-bordered table-hover w-auto">
-            <thead>
-              <tr>
-                <th>Név</th>
-                <th>Utca</th>
-                <th>Ház szám</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(cim, index) in cimek"
-                :key="`cim${index}`"
-                @click="onClikRow(cim.id)"
-              >
-                <td>{{ cim.nev }}</td>
-                <td>{{ cim.utca }}</td>
-                <td>{{ cim.hsz }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Név</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  v-model="editableCimek.cimnev"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="street" class="form-label">Utca</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="street"
+                  v-model="editableCimek.utca"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="houseNumber" class="form-label">Házszám</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="houseNumber"
+                  v-model="editableCimek.hazszam"
+                  required
+                />
+              </div>
+            </form>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -82,11 +96,18 @@
             >
               Bezárás
             </button>
-            <button type="button" class="btn btn-secondary">Mentés</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="onClickSave()"
+            >
+              Mentés
+            </button>
           </div>
         </div>
       </div>
     </div>
+
     <!--#endregion Modal -->
   </div>
 </template>
@@ -200,14 +221,18 @@ export default {
     },
     onClickNew() {
       this.state = "new";
-      // this.currentId = null;
-      // this.editablePizza = new Pizza();
       this.modal.show();
     },
     onClickCancel() {
       this.modal.hide();
     },
     onClickSave() {
+      console.log(this.editableCimek);
+
+      // Reset form values
+      this.editableCimek = new Cimek();
+
+      // Bezárás
       this.modal.hide();
     },
   },

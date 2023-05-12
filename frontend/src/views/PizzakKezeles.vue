@@ -1,62 +1,60 @@
-
 <template>
   <div>
     <h1>Pizzák kezelése</h1>
 
     <!--#region táblázat -->
     <div class="my-overflow">
-    <table class="table table-bordered table-hover w-auto" >
-      <thead>
-        <tr>
-          <th>
-            <!-- New car -->
-            <button
-              type="button"
-              class="btn btn-outline-success btn-sm"
-              @click="onClickNew()"
-            >
-              Új pizza
-            </button>
-          </th>
-          <th>Pizza fajtája</th>
-          <th>Pizza mérete</th>
-          <th>Pizza ára</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(pizza, index) in pizzak"
-          :key="`pizza${index}`"
-          :class="currentRowBackground(pizza.id)"
-          @click="onClikRow(pizza.id)"
-        >
-          <td class="text-nowrap">
-            <!-- törlés -->
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              @click="onClickDelete(pizza.id)"
-            >
-              <i class="bi bi-trash3-fill"></i>
-            </button>
+      <table class="table table-bordered table-hover table-dark w-auto">
+        <thead>
+          <tr>
+            <th>
+              <!-- New car -->
+              <button
+                type="button"
+                class="btn btn-outline-success btn-sm"
+                @click="onClickNew()"
+              >
+                Új pizza
+              </button>
+            </th>
+            <th>Pizza fajtája</th>
+            <th>Pizza mérete</th>
+            <th>Pizza ára</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(pizza, index) in pizzak"
+            :key="`pizza${index}`"
+            :class="currentRowBackground(pizza.id)"
+            @click="onClikRow(pizza.id)"
+          >
+            <td class="text-nowrap">
+              <!-- törlés -->
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                @click="onClickDelete(pizza.id)"
+              >
+                <i class="bi bi-trash3-fill"></i>
+              </button>
 
-            <!-- módosítás -->
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm ms-2"
-              @click="onClickEdit(pizza.id)"
-            >
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-          </td>
-          <td>{{ pizza.nev }}</td>
-          <td>{{ pizza.meret }}</td>
-          <td>{{ pizza.ar }}</td>
-        
-        </tr>
-      </tbody>
-    </table>
-  </div>
+              <!-- módosítás -->
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm ms-2"
+                @click="onClickEdit(pizza.id)"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+            </td>
+            <td>{{ pizza.nev }}</td>
+            <td>{{ pizza.meret }}</td>
+            <td>{{ pizza.ar }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!--#endregion táblázat -->
 
     <!--#region Modal -->
@@ -68,14 +66,14 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark text-light">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
               {{ stateTitle }}
             </h1>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close btn-close-white"
               @click="onClickCancel()"
               aria-label="Close"
             ></button>
@@ -116,9 +114,7 @@
 
               <!-- ar -->
               <div class="col-md-6">
-                <label for="ar" class="form-label"
-                  >Ára</label
-                >
+                <label for="ar" class="form-label">Ára</label>
                 <input
                   type="number"
                   class="form-control"
@@ -128,7 +124,6 @@
                 />
                 <div class="invalid-feedback">Az ár kitöltése kötelező</div>
               </div>
-             
             </form>
             <!--#endregion Form -->
           </div>
@@ -145,7 +140,6 @@
             <button
               type="button"
               class="btn btn-primary"
-              
               @click="onClickSave()"
             >
               Mentés
@@ -166,12 +160,7 @@ const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
 class Pizza {
-  constructor(
-    id = 0,
-    nev = null,
-    meret = null,
-    ar = null
-  ) {
+  constructor(id = 0, nev = null, meret = null, ar = null) {
     this.id = id;
     this.nev = nev;
     this.meret = meret;
@@ -214,10 +203,6 @@ export default {
       const response = await fetch(url, config);
       const data = await response.json();
       this.pizzak = data.data;
-      // this.cars = data.data.map((car) => {
-      //   car.outOfTraffic = car.outOfTraffic === 1;
-      //   return car;
-      // });
     },
     async getPizzaById(id) {
       let url = `${this.storeUrl.urlPizzak}/${id}`;
@@ -248,7 +233,6 @@ export default {
     async postPizza() {
       let url = this.storeUrl.urlPizzak;
       const body = JSON.stringify(this.editablePizza);
-      console.log(url,body);
       const config = {
         method: "POST",
         headers: {
@@ -259,7 +243,6 @@ export default {
       };
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("x",data.data);
       this.getPizzak();
     },
     async putPizza() {
@@ -316,21 +299,19 @@ export default {
     onClickSave() {
       this.form.classList.add("was-validated");
       if (this.form.checkValidity()) {
-        if (this.state == "edit") {
-          //put
+        if (this.state === "edit") {
+          // put
           this.putPizza();
-          // this.modal.hide();
-        } else if (this.state == "new") {
-          //post
+        } else if (this.state === "new") {
+          // post
           this.postPizza();
-          // this.modal.hide();
         }
         this.modal.hide();
-  this.getPizzak();
+        this.getPizzak();
       }
     },
     currentRowBackground(id) {
-      return this.currentId == id ? "my-bg-current-row" : "";
+      return this.currentId === id ? "my-bg-current-row" : "";
     },
     outOfTrafficName(outOfTraffic) {
       return outOfTraffic ? "igen" : "nem";
@@ -349,25 +330,105 @@ export default {
 </script>
 
 
+
 <style>
 .my-bg-current-row {
-
   background-color: gray;
 }
+
 table {
-    background-color: #dcdcdc;
-  }
+  background-color: #333333;
+  color: white;
+}
 
-  tr:hover {
-    background-color: #b3b3b3;
-  }
+table th,
+table td {
+  border-color: #ffffff;
+}
 
-  tbody tr {
-    background-color: #f5f5f5;
-  }
+tr:hover {
+  background-color: #555555;
+}
 
-  .my-overflow{
-    height: 3000px;
-    overflow-y: scroll;
-  }
+.my-overflow {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.modal-content {
+  background-color: #333333;
+  color: white;
+}
+
+.modal-header {
+  background-color: #222222;
+  border-color: #ffffff;
+}
+
+.modal-title {
+  color: #ffffff;
+}
+
+.modal-body {
+  background-color: #222222;
+  color: white;
+}
+
+.modal-footer {
+  background-color: #222222;
+  border-color: #ffffff;
+}
+
+.modal-footer button {
+  color: white;
+}
+
+.btn-outline-success,
+.btn-outline-primary,
+.btn-outline-danger {
+  color: white;
+  border-color: white;
+}
+
+.btn-outline-success:hover,
+.btn-outline-primary:hover,
+.btn-outline-danger:hover {
+  color: #333333;
+  background-color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #bb2d3b;
+  border-color: #bb2d3b;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0a58c1;
+  border-color: #0a58c1;
+}
+
+.btn-close {
+  color: white;
+}
+
+.invalid-feedback {
+  color: white;
+}
+
+.form-label {
+  color: white;
+}
+h1{
+  color:white;
+}
 </style>

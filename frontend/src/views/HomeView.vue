@@ -21,7 +21,7 @@
 
             <button
               v-if="storeLogin.loginSuccess"
-              href="#"
+              type="button"
               class="btn btn-dark"
               @click="onClickNew(pizza.id)"
             >

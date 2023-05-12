@@ -1,11 +1,10 @@
-
 <template>
   <div>
     <h1>Cím kezelése</h1>
 
     <!--#region táblázat -->
     <div class="my-overflow">
-      <table class="table table-bordered table-hover w-auto">
+      <table class="table table-dark table-bordered table-hover w-auto">
         <thead>
           <tr>
             <th>
@@ -66,7 +65,7 @@
       aria-labelledby="modalCarModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
@@ -113,7 +112,7 @@
                 <div class="invalid-feedback">Az utca kitöltése kötelező</div>
               </div>
 
-              <!-- ar -->
+              <!-- házszám -->
               <div class="col-md-6">
                 <label for="ar" class="form-label">Házszám</label>
                 <input
@@ -123,9 +122,7 @@
                   required
                   v-model="editableCimek.hsz"
                 />
-                <div class="invalid-feedback">
-                  Az házszám kitöltése kötelező
-                </div>
+                <div class="invalid-feedback">A házszám kitöltése kötelező</div>
               </div>
             </form>
             <!--#endregion Form -->
@@ -165,9 +162,9 @@ const storeLogin = useLoginStore();
 class Cimek {
   constructor(id = 0, nev = null, utca = null, hsz = null) {
     this.id = id;
-    this.cimnev = nev;
+    this.nev = nev;
     this.utca = utca;
-    this.hazszam = hsz;
+    this.hsz = hsz;
   }
 }
 
@@ -206,11 +203,8 @@ export default {
       const response = await fetch(url, config);
       const data = await response.json();
       this.cimek = data.data;
-      // this.cars = data.data.map((car) => {
-      //   car.outOfTraffic = car.outOfTraffic === 1;
-      //   return car;
-      // });
     },
+
     async getCimekById(id) {
       let url = `${this.storeUrl.urlCimek}/${id}`;
       const config = {
@@ -236,11 +230,9 @@ export default {
       const data = await response.json();
       this.driversAbc = data.data;
     },
-
     async postCimek() {
       let url = this.storeUrl.urlCimek;
       const body = JSON.stringify(this.editableCimek);
-      console.log(url, body);
       const config = {
         method: "POST",
         headers: {
@@ -251,9 +243,9 @@ export default {
       };
       const response = await fetch(url, config);
       const data = await response.json();
-      console.log("x", data.data);
       this.getCimek();
     },
+
     async putCimek() {
       const id = this.editableCimek.id;
       let url = `${this.storeUrl.urlCimek}/${id}`;
@@ -269,6 +261,7 @@ export default {
       const response = await fetch(url, config);
       this.getCimek();
     },
+
     async deleteCimek(id) {
       let url = `${this.storeUrl.urlCimek}/${id}`;
       const config = {
@@ -281,53 +274,58 @@ export default {
       const response = await fetch(url, config);
       this.getCimek();
     },
+
     onClikRow(id) {
       this.currentId = id;
     },
+
     onClickNew() {
       this.state = "new";
       this.currentId = null;
       this.editableCimek = new Cimek();
       this.modal.show();
     },
+
     onClickDelete(id) {
       this.state = "delete";
       this.deleteCimek(id);
       this.currentId = null;
     },
+
     onClickEdit(id) {
       this.state = "edit";
       this.getCimekById(id);
       this.getFreeDriversAbc();
       this.modal.show();
     },
+
     onClickCancel() {
       this.editableCimek = new Cimek();
       this.modal.hide();
     },
+
     onClickSave() {
       this.form.classList.add("was-validated");
       if (this.form.checkValidity()) {
         if (this.state == "edit") {
-          //put
           this.putCimek();
-          // this.modal.hide();
         } else if (this.state == "new") {
-          //post
           this.postCimek();
-          // this.modal.hide();
         }
         this.modal.hide();
         this.getCimek();
       }
     },
+
     currentRowBackground(id) {
       return this.currentId == id ? "my-bg-current-row" : "";
     },
+
     outOfTrafficName(outOfTraffic) {
       return outOfTraffic ? "igen" : "nem";
     },
   },
+
   computed: {
     stateTitle() {
       if (this.state === "new") {
@@ -340,25 +338,33 @@ export default {
 };
 </script>
 
-
-<style>
+<style scoped>
 .my-bg-current-row {
   background-color: gray;
 }
+
 table {
-  background-color: #dcdcdc;
+  background-color: #333;
+  color: #fff;
+}
+
+thead {
+  background-color: #555;
 }
 
 tr:hover {
-  background-color: #b3b3b3;
+  background-color: #444;
 }
 
 tbody tr {
-  background-color: #f5f5f5;
+  background-color: #666;
 }
 
 .my-overflow {
   height: 300px;
   overflow-y: scroll;
+}
+h1{
+  color:white;
 }
 </style>

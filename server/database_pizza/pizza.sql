@@ -53,3 +53,19 @@ delete from cim where id = 0;
 
   #delete ../cimek/100
   delete from cim where id = 100;
+
+  #get n
+    select id, CONCAT(nev, ' ', utca, ' ', hsz) nevcim from cim
+    order by nev
+    ;
+    
+  #post rendeles
+  insert into rendeles
+    (pizzaid,darab,cimid,szallitas)
+    VALUES
+    (50,2,184,'2023.05.12. 12:00');
+
+  select * from rendeles;
+
+  delete from rendeles
+    where id = 0;

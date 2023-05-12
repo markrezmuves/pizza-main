@@ -56,33 +56,36 @@
           </div>
           <div class="modal-body">
             <form>
+              <!-- Név, cim -->
               <div class="mb-3">
-                <label for="name" class="form-label">Név</label>
+                <select 
+                v-model="editableCimek.cimid"
+                class="form-select" aria-label="Default select example">
+                  
+                  <option
+                    v-for="(nevUtcaHsz,index) in nevUtcaHszok "
+                    :key="`nuh${index}`"
+                   :value="nevUtcaHsz.id"
+                  >{{nevUtcaHsz.nevcim}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="darab" class="form-label">Darab</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="name"
-                  v-model="editableCimek.cimnev"
+                  id="darab"
+                  v-model="editableCimek.darab"
                   required
                 />
               </div>
               <div class="mb-3">
-                <label for="street" class="form-label">Utca</label>
+                <label for="szallitas" class="form-label">Szállitás</label>
                 <input
-                  type="text"
+                  type="datetime-local"
                   class="form-control"
-                  id="street"
-                  v-model="editableCimek.utca"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="houseNumber" class="form-label">Házszám</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="houseNumber"
-                  v-model="editableCimek.hazszam"
+                  id="szallitas"
+                  v-model="editableCimek.szallitas"
                   required
                 />
               </div>
@@ -124,11 +127,11 @@ const storeUrl = useUrlStore();
 const storeLogin = useLoginStore();
 
 class Cimek {
-  constructor(id = 0, nev = null, utca = null, hsz = null) {
-    this.id = id;
-    this.cimnev = nev;
-    this.utca = utca;
-    this.hazszam = hsz;
+  constructor(pizzaid = null, darab = null, cimid = null, szallitas = null) {
+    this.pizzaid = pizzaid;
+    this.darab = darab;
+    this.cimid = cimid;
+    this.szallitas = szallitas;
   }
 }
 
@@ -145,11 +148,13 @@ export default {
       modal: null,
       state: "view",
       form: null,
+      nevUtcaHszok: [],
     };
   },
   mounted() {
     this.getCimek();
     this.getPizzas();
+    this.getNevUtcaHsz();
     this.modal = new bootstrap.Modal(document.getElementById("modalpizza"), {
       keyboard: false,
     });
@@ -219,6 +224,19 @@ export default {
       const data = await response.json();
       this.pizzasData = data.data;
     },
+    async getNevUtcaHsz() {
+      const url = this.storeUrl.urlNevUtcaHsz;
+      const config = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+      };
+      const response = await fetch(url, config);
+      const data = await response.json();
+      this.nevUtcaHszok = data.data;
+    },
+
     onClickNew() {
       this.state = "new";
       this.modal.show();

@@ -54,6 +54,9 @@ export const useUrlStore = defineStore({
      },
      urlRendelesek(){
       return `${this.urlData}/rendelesek`
+     },
+     urlNevUtcaHsz(){
+      return `${this.urlData}/nevUtcaHsz`
      }
   },
 });

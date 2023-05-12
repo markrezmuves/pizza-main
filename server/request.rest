@@ -134,3 +134,6 @@ Content-Type: application/json
 
 ### Delete user
 delete http://localhost:3000/cimek/391
+
+### get nevUtcaHsz
+get http://localhost:3000/nevUtcaHsz

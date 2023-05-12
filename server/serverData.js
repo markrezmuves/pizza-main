@@ -913,6 +913,29 @@ app.get("/cimek", (req, res) => {
   });
 });
 
+app.get("/nevUtcaHsz", (req, res) => {
+  let sql = `select id, CONCAT(nev, ' ', utca, ' ', hsz) nevcim from cim
+  order by nev`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "cim sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
+
+
+
 app.get("/cimek/:id", (req, res) => {
   const id = req.params.id;
   let sql = `
@@ -1021,6 +1044,39 @@ app.delete("/cimek/:id", (req, res) => {
 
 
 //#endregion cim
+
+
+//#region rendeles
+app.post("/rendeles", (req, res) => {
+  const newR = {
+    pizzaid: req.body.pizzaid,
+    darab: req.body.darab,
+    cimid: req.body.cimid,
+    szallitas: req.body.szallitas
+  };
+  let sql = `
+  insert into pizza
+  (nev, meret, ar)
+  values 
+  (?, ?, ?);
+    `;
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(
+      sql,
+      [newR.nev, newR.meret, newR.ar ],
+      function (error, result, fields) {
+        sendingPost(res, error, result, newR);
+      }
+    );
+    connection.release();
+  });
+});
+
+//#endregion rendeles
 
 
 function mySanitizeHtml(data) {

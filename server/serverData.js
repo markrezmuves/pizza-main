@@ -1047,6 +1047,26 @@ app.delete("/cimek/:id", (req, res) => {
 
 
 //#region rendeles
+
+app.get("/rendeles", (req, res) => {
+  let sql = `SELECT * FROM rendeles`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, async function (error, results, fields) {
+      if (error) {
+        message = "rendeles sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGet(res, null, results);
+    });
+    connection.release();
+  });
+});
 app.post("/rendeles", (req, res) => {
   const newR = {
     pizzaid: req.body.pizzaid,
@@ -1055,8 +1075,8 @@ app.post("/rendeles", (req, res) => {
     szallitas: req.body.szallitas
   };
   let sql = `
-  insert into pizza
-  (nev, meret, ar)
+  insert into rendeles
+  (pizzaid, darab, cimid, szallitas)
   values 
   (?, ?, ?);
     `;
@@ -1067,7 +1087,7 @@ app.post("/rendeles", (req, res) => {
     }
     connection.query(
       sql,
-      [newR.nev, newR.meret, newR.ar ],
+      [newR.pizzaid, newR.darab, newR.cimid, newR.szallitas ],
       function (error, result, fields) {
         sendingPost(res, error, result, newR);
       }

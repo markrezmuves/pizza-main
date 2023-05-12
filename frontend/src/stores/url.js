@@ -52,8 +52,8 @@ export const useUrlStore = defineStore({
     urlCimek(){
        return `${this.urlData}/cimek`
      },
-     urlRendelesek(){
-      return `${this.urlData}/rendelesek`
+     urlRendeles(){
+      return `${this.urlData}/rendeles`
      },
      urlNevUtcaHsz(){
       return `${this.urlData}/nevUtcaHsz`

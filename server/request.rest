@@ -76,7 +76,7 @@ get http://localhost:3000/pizzak
 ### get pizza
 get http://localhost:3000/pizzak/1
 
-## User hozzáadása (regisztráció)
+### User hozzáadása (regisztráció)
 ### mark, 123
 post http://localhost:3000/pizzak
 Content-Type: application/json
@@ -137,3 +137,15 @@ delete http://localhost:3000/cimek/391
 
 ### get nevUtcaHsz
 get http://localhost:3000/nevUtcaHsz
+
+
+### rendeles post
+post http://localhost:3000/rendeles
+Content-Type: application/json
+
+{
+     "pizzaid": 50,
+      "darab": 2,
+      "cimid": 184,
+      "szallitas": "2023.05.12. 12:00"
+}

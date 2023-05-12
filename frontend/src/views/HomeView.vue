@@ -23,7 +23,7 @@
               v-if="storeLogin.loginSuccess"
               href="#"
               class="btn btn-dark"
-              @click="onClickNew()"
+              @click="onClickNew(pizza.id)"
             >
               Megrendelés
             </button>
@@ -58,15 +58,18 @@
             <form>
               <!-- Név, cim -->
               <div class="mb-3">
-                <select 
-                v-model="editableCimek.cimid"
-                class="form-select" aria-label="Default select example">
-                  
+                <select
+                  v-model="editableCimek.cimid"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
                   <option
-                    v-for="(nevUtcaHsz,index) in nevUtcaHszok "
+                    v-for="(nevUtcaHsz, index) in nevUtcaHszok"
                     :key="`nuh${index}`"
-                   :value="nevUtcaHsz.id"
-                  >{{nevUtcaHsz.nevcim}}</option>
+                    :value="nevUtcaHsz.id"
+                  >
+                    {{ nevUtcaHsz.nevcim }}
+                  </option>
                 </select>
               </div>
               <div class="mb-3">
@@ -149,6 +152,7 @@ export default {
       state: "view",
       form: null,
       nevUtcaHszok: [],
+      rendelPizzaId: null,
     };
   },
   mounted() {
@@ -237,7 +241,10 @@ export default {
       this.nevUtcaHszok = data.data;
     },
 
-    onClickNew() {
+    onClickNew(id) {
+      this.rendelPizzaId = id;
+      this.editableCimek = new Cimek();
+      this.editableCimek.pizzaid = this.rendelPizzaId;
       this.state = "new";
       this.modal.show();
     },
@@ -245,13 +252,53 @@ export default {
       this.modal.hide();
     },
     onClickSave() {
-      console.log(this.editableCimek);
+      this.form.classList.add("was-validated");
+      if (this.form.checkValidity()) {
+        if (this.state == "edit") {
+          //put
+          this.putNevUtcaHsz();
+          // this.modal.hide();
+        } else if (this.state == "new") {
+          //post
+          this.postNevUtcaHsz();
+          // this.modal.hide();
+        }
+        this.modal.hide();
+        this.getNevUtcaHsz();
+      }
+    },
 
-      // Reset form values
-      this.editableCimek = new Cimek();
-
-      // Bezárás
-      this.modal.hide();
+    async postNevUtcaHsz() {
+      let url = this.storeUrl.urlNevUtcaHsz;
+      const body = JSON.stringify(this.editableCimek);
+      console.log(url, body);
+      const config = {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+        body: body,
+      };
+      const response = await fetch(url, config);
+      const data = await response.json();
+      console.log("x", data.data);
+      this.getNevUtcaHsz();
+    },
+    async putNevUtcaHsz() {
+      const id = this.editableCimek.id;
+      let url = `${this.storeUrl.urlNevUtcaHsz}/${id}`;
+      const body = JSON.stringify(this.editableCimek);
+      const config = {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+        body: body,
+      };
+      const response = await fetch(url, config);
+      this.getNevUtcaHsz();
     },
   },
 };

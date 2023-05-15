@@ -1,127 +1,65 @@
 <template>
   <div>
-    <h1>Megrendelők</h1>
+    <h1>Megrendelések</h1>
 
-    <!--#region táblázat -->
-    <div class="my-overflow">
-      <table class="table table-bordered table-hover table-dark w-auto">
-        <thead>
-          <tr>
-            <th>Pizza fajtája</th>
-            <th>Pizza mérete</th>
-            <th>Pizza ára</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(pizza, index) in pizzak"
-            :key="`pizza${index}`"
-            :class="currentRowBackground(pizza.id)"
-            @click="onClikRow(pizza.id)"
-          >
-            <td>{{ pizza.nev }}</td>
-            <td>{{ pizza.meret }}</td>
-            <td>{{ pizza.ar }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!--#endregion táblázat -->
-
-    <!--#region Modal -->
-    <div
-      class="modal fade"
-      id="modalCar"
-      tabindex="-1"
-      aria-labelledby="modalCarModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark text-light">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              {{ stateTitle }}
-            </h1>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              @click="onClickCancel()"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <!--#region Modal body -->
-          <div class="modal-body">
-            <!--#region Form -->
-
-            <form class="row g-3 needs-validation" novalidate>
-              <!-- pizzs név -->
-              <div class="col-md-12">
-                <label for="nev" class="form-label">Pizza neve</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nev"
-                  required
-                  v-model="editablePizza.nev"
-                />
-                <div class="invalid-feedback">A pizza név kitöltése kötelező</div>
-              </div>
-
-              <!-- pizza mérete  -->
-              <div class="col-md-6">
-                <label for="meret" class="form-label">A pizza mérete</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="meret"
-                  required
-                  v-model="editablePizza.meret"
-                />
-                <div class="invalid-feedback">
-                  A pizza méretének kitöltése kötelező
-                </div>
-              </div>
-
-              <!-- ar -->
-              <div class="col-md-6">
-                <label for="ar" class="form-label">Ára</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="ar"
-                  required
-                  v-model="editablePizza.ar"
-                />
-                <div class="invalid-feedback">Az ár kitöltése kötelező</div>
-              </div>
-            </form>
-            <!--#endregion Form -->
-          </div>
-          <!--#endregion Modal body -->
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-danger"
-              @click="onClickCancel()"
+    <div class="row">
+      <!--#region pizzak tablazat -->
+      <div class="my-overflow col-md-4">
+        <h2>Pizzák</h2>
+        <table class="table table-bordered table-hover table-dark w-auto">
+          <thead>
+            <tr>
+              <th>Pizza fajtája</th>
+              <th>Pizza mérete</th>
+              <th>Pizza ára</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(pizza, index) in pizzak"
+              :key="`pizza${index}`"
+              :class="currentRowBackground(pizza.id)"
+              @click="onClikRow(pizza.id)"
             >
-              Bezárás
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="onClickSave()"
-            >
-              Mentés
-            </button>
-          </div>
-        </div>
+              <td>{{ pizza.nev }}</td>
+              <td>{{ pizza.meret }}</td>
+              <td>{{ pizza.ar }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <!--#endregion Modal -->
 
-    
+      <div class="col-md-8"> 
+        <h2>Pizza megrendelései</h2>
+        <table class="table table-bordered table-hover table-dark w-auto"
+        v-if="pizzaRendelesek.length"
+        >
+          <thead>
+
+            <tr>
+              <th>Darab</th>
+              <th>Szállítás</th>
+              <th>Név</th>
+              <th>Utca</th>
+              <th>Ház szám</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(rendeles, index) in pizzaRendelesek"
+              :key="`rendeles${index}`"
+            >
+              <td>{{ rendeles.darab }}</td>
+              <td>{{ rendeles.szallitas }}</td>
+              <td>{{ rendeles.nev }}</td>
+              <td>{{ rendeles.utca }}</td>
+              <td>{{ rendeles.hsz }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--#endregion táblázat -->
+    </div>
   </div>
 </template>
 <script>
@@ -152,16 +90,11 @@ export default {
       state: "view",
       currentId: null,
       driversAbc: [],
+      pizzaRendelesek: [],
     };
   },
   mounted() {
     this.getPizzak();
-    this.getFreeDriversAbc();
-    this.modal = new bootstrap.Modal(document.getElementById("modalCar"), {
-      keyboard: false,
-    });
-
-    this.form = document.querySelector(".needs-validation");
   },
   methods: {
     async getPizzak() {
@@ -175,6 +108,18 @@ export default {
       const response = await fetch(url, config);
       const data = await response.json();
       this.pizzak = data.data;
+    },
+    async getPizzaRendelesek() {
+      let url = `${this.storeUrl.urlPizzaRendelesek}/${this.currentId}`;
+      const config = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.storeLogin.accessToken}`,
+        },
+      };
+      const response = await fetch(url, config);
+      const data = await response.json();
+      this.pizzaRendelesek = data.data;
     },
     async getPizzaById(id) {
       let url = `${this.storeUrl.urlPizzak}/${id}`;
@@ -246,6 +191,7 @@ export default {
     },
     onClikRow(id) {
       this.currentId = id;
+      this.getPizzaRendelesek();
     },
     onClickNew() {
       this.state = "new";
@@ -400,7 +346,10 @@ tr:hover {
 .form-label {
   color: white;
 }
-h1{
+h1 {
+  color: white;
+}
+h2{
   color:white;
 }
 </style>

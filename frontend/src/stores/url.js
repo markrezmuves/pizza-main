@@ -57,6 +57,10 @@ export const useUrlStore = defineStore({
      },
      urlNevUtcaHsz(){
       return `${this.urlData}/nevUtcaHsz`
+     },
+     urlPizzaRendelesek(){
+      return `${this.urlData}/pizzaRendelesek`
      }
+     
   },
 });

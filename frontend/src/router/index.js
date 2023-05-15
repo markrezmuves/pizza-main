@@ -30,7 +30,7 @@ const router = createRouter({
       name: "megrendelok",
       component: () => import("../views/Megrendelok.vue"),
       meta: {
-        requiresAuth: false,
+        requiresAuth: true,
         title: "Megrendelok / Pizza",
       },
     },

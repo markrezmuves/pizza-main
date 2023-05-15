@@ -784,7 +784,7 @@ app.get("/pizzak/:id", (req, res) => {
 });
 
 app.get("/pizzakkeres/:keresoszo", (req, res) => {
-  const keresoszo =`%${req.params.keresoszo}%`;
+  const keresoszo = `%${req.params.keresoszo}%`;
   let sql = `
   select * from pizza where nev like ?`;
 
@@ -830,7 +830,7 @@ app.post("/pizzak", (req, res) => {
     }
     connection.query(
       sql,
-      [newR.nev, newR.meret, newR.ar ],
+      [newR.nev, newR.meret, newR.ar],
       function (error, result, fields) {
         sendingPost(res, error, result, newR);
       }
@@ -983,7 +983,7 @@ app.post("/cimek", (req, res) => {
     }
     connection.query(
       sql,
-      [newR.nev, newR.utca, newR.hsz ],
+      [newR.nev, newR.utca, newR.hsz],
       function (error, result, fields) {
         sendingPost(res, error, result, newR);
       }
@@ -1088,7 +1088,7 @@ app.post("/rendeles", (req, res) => {
     }
     connection.query(
       sql,
-      [newR.pizzaid, newR.darab, newR.cimid, newR.szallitas ],
+      [newR.pizzaid, newR.darab, newR.cimid, newR.szallitas],
       function (error, result, fields) {
         sendingPost(res, error, result, newR);
       }
@@ -1140,8 +1140,7 @@ function mySanitizeHtml(data) {
 
 app.listen(process.env.APP_PORT, () => {
   console.log(
-    `Data server, listen port: ${process.env.APP_PORT} (Auth: ${
-      process.env.AUTH_ON == 1 ? "on" : "off"
+    `Data server, listen port: ${process.env.APP_PORT} (Auth: ${process.env.AUTH_ON == 1 ? "on" : "off"
     })`
   );
 });

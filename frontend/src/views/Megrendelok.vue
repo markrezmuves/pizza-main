@@ -7,16 +7,6 @@
       <table class="table table-bordered table-hover table-dark w-auto">
         <thead>
           <tr>
-            <th>
-              <!-- New car -->
-              <button
-                type="button"
-                class="btn btn-outline-success btn-sm"
-                @click="onClickNew()"
-              >
-                Új pizza
-              </button>
-            </th>
             <th>Pizza fajtája</th>
             <th>Pizza mérete</th>
             <th>Pizza ára</th>
@@ -29,25 +19,6 @@
             :class="currentRowBackground(pizza.id)"
             @click="onClikRow(pizza.id)"
           >
-            <td class="text-nowrap">
-              <!-- törlés -->
-              <button
-                type="button"
-                class="btn btn-outline-danger btn-sm"
-                @click="onClickDelete(pizza.id)"
-              >
-                <i class="bi bi-trash3-fill"></i>
-              </button>
-
-              <!-- módosítás -->
-              <button
-                type="button"
-                class="btn btn-outline-primary btn-sm ms-2"
-                @click="onClickEdit(pizza.id)"
-              >
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-            </td>
             <td>{{ pizza.nev }}</td>
             <td>{{ pizza.meret }}</td>
             <td>{{ pizza.ar }}</td>
@@ -149,6 +120,8 @@
       </div>
     </div>
     <!--#endregion Modal -->
+
+    
   </div>
 </template>
 <script>

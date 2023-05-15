@@ -149,3 +149,6 @@ Content-Type: application/json
       "cimid": 184,
       "szallitas": "2023.05.12. 12:00"
 }
+
+### get pizzaRendelesek
+get http://localhost:3000/pizzaRendelesek/1

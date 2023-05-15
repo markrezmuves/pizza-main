@@ -55,13 +55,14 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form  class="row g-3 needs-validation" novalidate>
               <!-- Név, cim -->
               <div class="mb-3">
                 <select
                   v-model="editableCimek.cimid"
                   class="form-select"
                   aria-label="Default select example"
+                  required
                 >
                   <option
                     v-for="(nevUtcaHsz, index) in nevUtcaHszok"
@@ -71,6 +72,7 @@
                     {{ nevUtcaHsz.nevcim }}
                   </option>
                 </select>
+                <div class="invalid-feedback">A select kitöltése kötelező</div>
               </div>
               <div class="mb-3">
                 <label for="darab" class="form-label">Darab</label>
@@ -81,7 +83,9 @@
                   v-model="editableCimek.darab"
                   required
                 />
+                <div class="invalid-feedback">A darab kitöltése kötelező</div>
               </div>
+
               <div class="mb-3">
                 <label for="szallitas" class="form-label">Szállitás</label>
                 <input
@@ -91,6 +95,7 @@
                   v-model="editableCimek.szallitas"
                   required
                 />
+                <div class="invalid-feedback">A szállitás kitöltése kötelező</div>
               </div>
             </form>
           </div>
@@ -269,7 +274,7 @@ export default {
     },
 
     async postNevUtcaHsz() {
-      let url = this.storeUrl.urlNevUtcaHsz;
+      let url = this.storeUrl.urlRendeles;
       const body = JSON.stringify(this.editableCimek);
       console.log(url, body);
       const config = {

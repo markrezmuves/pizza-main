@@ -32,7 +32,7 @@
               :class="{ active: menuState === 3 }"
               to="/about"
               @click="onClickMenu(3)"
-              >Bemutatkozó</router-link
+              >Elérhetőségek</router-link
             >
           </li>
           <li class="nav-item dropdown">
@@ -42,14 +42,14 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              :class="{ active: menuState === 4 }"
+              :class="{ active: menuState === 4, disabled: !storeLogin.loginSuccess }"
               @click="onClickMenu(4)"
               >Pizzák szerkesztése</a
             >
             <ul class="dropdown-menu">
               <li>
                 <router-link class="dropdown-item" to="/Megrendelok"
-                  >Ide se tudom még</router-link
+                  >Megrendelők</router-link
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>
@@ -68,7 +68,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -97,7 +97,7 @@
                 >
               </li>
             </ul>
-          </li>
+          </li> -->
           <li class="nav-item" v-if="!storeLogin.loginSuccess">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>

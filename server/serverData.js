@@ -1067,6 +1067,7 @@ app.get("/rendeles", (req, res) => {
     connection.release();
   });
 });
+//post rendeles
 app.post("/rendeles", (req, res) => {
   const newR = {
     pizzaid: req.body.pizzaid,
@@ -1078,7 +1079,7 @@ app.post("/rendeles", (req, res) => {
   insert into rendeles
   (pizzaid, darab, cimid, szallitas)
   values 
-  (?, ?, ?);
+  (?, ?, ?, ?);
     `;
   pool.getConnection(function (error, connection) {
     if (error) {
@@ -1092,6 +1093,37 @@ app.post("/rendeles", (req, res) => {
         sendingPost(res, error, result, newR);
       }
     );
+    connection.release();
+  });
+});
+
+
+app.get("/pizzaRendelesek/:pizzaid", (req, res) => {
+  const pizzaid = req.params.pizzaid;
+  let sql = `
+  select r.id, r.pizzaid, r.darab, r.szallitas, c.nev, c.utca, c.hsz from rendeles r
+  inner join cim c on c.id = r.cimid
+where r.pizzaid = ?
+order by r.szallitas desc`;
+
+  pool.getConnection(function (error, connection) {
+    if (error) {
+      sendingGetError(res, "Server connecting error!");
+      return;
+    }
+    connection.query(sql, [pizzaid], async function (error, results, fields) {
+      if (error) {
+        const message = "Cars sql error";
+        sendingGetError(res, message);
+        return;
+      }
+      if (results.length == 0) {
+        const message = `Not found id: ${pizzaid}`;
+        sendingGetError(res, message);
+        return;
+      }
+      sendingGetById(res, null, results, pizzaid);
+    });
     connection.release();
   });
 });
